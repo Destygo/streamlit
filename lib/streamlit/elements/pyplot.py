@@ -55,6 +55,11 @@ def marshall(coordinates, new_element_proto, fig=None, clear_figure=True, **kwar
     kwargs.update(options)
 
     image = io.BytesIO()
+    if "fname" in kwargs:
+        fig.savefig(**kwargs)
+        kwargs.pop('fname')
+
+    image = io.BytesIO()
     fig.savefig(image, **kwargs)
     image_proto.marshall_images(
         coordinates,
